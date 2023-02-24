@@ -4,7 +4,11 @@ import java.io.Serializable;
 import java.util.Calendar;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -34,10 +38,12 @@ public class Pagamento implements Serializable{
     @Column(nullable = false)
     private Float valor;
     
-    @Column(nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "servico_id", nullable = false)
     private Servico servico;
     
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private FormaPagamento formaPagamento;
 
     public Integer getId() {

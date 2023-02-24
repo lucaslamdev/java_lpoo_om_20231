@@ -4,21 +4,25 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
+
 
 /**
  *
  * @author lucas
  */
 @Entity
-@Table(name = "tb_funcionario")
-public class Funcionario implements Serializable{
+@DiscriminatorValue("F")
+public class Funcionario extends Pessoa{
     
-    @Id
     private String numero_ctps;
     
     @Column(nullable = false)
@@ -31,8 +35,13 @@ public class Funcionario implements Serializable{
     
     @Column(nullable = false)
     private Cargo cargo;
-    
-    @Column(nullable = false)
+
+    @ManyToMany
+    @JoinTable(name = "tb_funcionario_curso", 
+            joinColumns = {
+                @JoinColumn(name = "pessoa_cpf")}, //agregacao, vai gerar uma tabela associativa.
+            inverseJoinColumns = {
+                @JoinColumn(name = "curso_id")})
     private List<Curso> cursos;
 
     public String getNumero_ctps() {

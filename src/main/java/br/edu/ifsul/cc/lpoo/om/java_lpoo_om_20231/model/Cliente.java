@@ -7,6 +7,7 @@ package br.edu.ifsul.cc.lpoo.om.java_lpoo_om_20231.model;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -15,11 +16,9 @@ import javax.persistence.Table;
  * @author lucas
  */
 @Entity
-@Table(name = "tb_cliente")
-public class Cliente extends Pessoa implements Serializable{
-    @Column(nullable = false, length = 300)
+@DiscriminatorValue("C")
+public class Cliente extends Pessoa{
     private String observacoes;
-    @Column(nullable = false)
     private List<Veiculo> veiculos;
 
     public String getObservacoes() {
